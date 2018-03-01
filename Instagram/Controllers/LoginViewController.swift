@@ -26,16 +26,13 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onSignIn(_ sender: Any) {
-        let username = usernameField.text ?? ""
-        let password = passwordField.text ?? ""
-        
-        PFUser.logInWithUsername(inBackground: username, password: password) { (user: PFUser?, error: Error?) in
-            if let error = error {
-                print("User log in failed: \(error.localizedDescription)")
-            } else {
-                print("User logged in successfully")
-                // display view controller that needs to shown after successful login
+        PFUser.logInWithUsername(inBackground: usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: Error?) in
+            if user != nil{
+                print("logged in")
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            }
+            else{
+                print(error?.localizedDescription)
             }
         }
     }
